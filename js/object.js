@@ -6,31 +6,79 @@ class Rose {
     this.d = 10               //denominator
     this.k = this.n / this.d; //denominator/nominator
     this.c = 5;               //number or corners
-    this.size = document.documentElement.clientHeight * mobileVersion(0.5, 0.4);
+    this.size = height * random(0.2, 0.7);
     
     this.lineWeight = this.size / 2500;
-    this.playspeed = random(0.0002,0.00005);
-    this.color = [random(0,360), 20, 50];
+    this.playspeedMultiplier = random(0.02,0.1)
+    this.playspeed = (this.playspeedMultiplier/width)
+    console.log(this.playspeedMultiplier)
+    this.color = [random(0,360), 70, 70];
+    this.colorStep = 240/width;
 
     this.trail = {
-      sizeA:    mobileVersion(200, 100),
-      distance: mobileVersion(0.0002, 0.0004),
+      size:    10,
+      distance: 0.0001,
       rotation: mobileVersion(0.005, 0.01), //random(0.001,0.005), //0.005,
+      minimumAlfa: 1,
       alfa: 1,
-      alfastep: 10
+      alfastep: 10 //to be changed in drawTrail()
     }
-    this.randomizeDNKC();
+
+    this.translatePosition = {
+      position: -800,
+      stepDistance: 1,
+      numberOfSteps(){
+        return width/this.stepDistance
+      },
+      increaseDistance(){
+        this.position +=this.stepDistance
+      }
+    }
+    this.init();
   }
 
+  //PRIMARY FUNCTIONS
+  init() {
+    this.randomizeDNKC();
+    // this.styleA();
+    let randomize = random(1)
+    if (randomize<.4){
+      this.styleB()
+    }
+    else{
+      this.styleA()
+    }
+    this.playspeed = this.playspeed*this.translatePosition.stepDistance;
+
+  }
   move() {
     this.updateDNK(this.playspeed);
     this.resetDNK();
+    this.translatePosition.increaseDistance();
   }
-
   draw() {
     this.loopHue();
     this.drawTrail();
   }
+
+  //SECONDARY FUNCTIONS
+  styleA(){
+    this.size = height * random(0.5, 0.8);
+    this.trail.size = random(5,10);
+    this.trail.distance = 0.0001;
+    this.trail.minimumAlfa = 0.5;
+    this.translatePosition.stepDistance = 2;
+    console.log("small")
+
+  }
+  styleB(){
+    this.trail.size = random(20,100);
+    this.trail.distance = 0.001;
+    this.trail.minimumAlfa = 0.08;
+    this.translatePosition.stepDistance = 3;
+    console.log("big")
+  }
+
 
   updateDNK(_increment) {
     this.n = this.n - _increment;
@@ -43,28 +91,27 @@ class Rose {
     }
   }
   randomizeDNKC(){
-    this.n = random(10,15)               
-    this.d = random(1,2)                  
+    this.n = random(5,15)                
+    this.d = random(1,2)                
     this.k = this.n / this.d;
-    this.c = random(1,3);
+    this.c = 3;
   }
   randomizeHue(){
     this.color[0]=random(0,360)
   }
   loopHue(){
-    this.color[0] = this.color[0]+0.1;
+    this.color[0] = this.color[0]+this.colorStep;
     if(this.color[0]>=360){
       this.color[0]=0
     }
   }
 
 
-
   drawTrail() {
     let tempAlfa = this.trail.alfa;
-    this.trail.alfastep = this.trail.alfa/this.trail.sizeA;
+    this.trail.alfastep = this.trail.alfa/this.trail.size;
 
-    for (let i = 0; i <= this.trail.sizeA; i++) {
+    for (let i = 0; i <= this.trail.size; i++) {
       let tempC = this.c + (i * (this.trail.distance));
       tempAlfa = tempAlfa - this.trail.alfastep;
 
@@ -72,8 +119,8 @@ class Rose {
       noFill()
       stroke(this.color[0], this.color[1], this.color[2], tempAlfa);
       strokeWeight(this.lineWeight);
-
-      if (i < this.trail.sizeA / 1.5) {
+      
+      if (i < this.trail.size / 1.5) {
         blendMode(SCREEN);
       } else {
         blendMode(NORMAL);
@@ -83,7 +130,6 @@ class Rose {
 
     }
   }
-
   drawRose(_size, _d, _k, _c){
     beginShape();
     for (let a = TWO_PI / _c; a < TWO_PI * _d; a += TWO_PI / _c) {
@@ -95,6 +141,7 @@ class Rose {
     endShape();
   }
 
+  //SETTERS
   set newSize(value){
     this.size=this.size+value;
   }
@@ -109,7 +156,14 @@ class Rose {
   }
 
   set newAlfa(value){
-    this.trail.alfa = 0.2/value;
+    this.trail.alfa = this.trail.minimumAlfa/value;
+    if(this.trail.alfa<0.08){this.trail.alfa = 0.08}
+    
+  }
+
+  //GETTERS
+  get NewTranslatePosition(){
+    return this.translatePosition.position;
   }
 }
 

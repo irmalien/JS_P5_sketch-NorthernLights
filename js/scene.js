@@ -9,7 +9,7 @@ const scene = {
   alfa: 1,
   looping: true,
   countDraw: 0,
-  fps: 30,
+  fps: 60,
   temporalFps: this.fps,
   trailing: 1,
   mode: false,

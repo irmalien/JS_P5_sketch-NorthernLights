@@ -19,8 +19,10 @@ function addRemoveObj(arr, quantity, obj, settings=undefined){
     arr.splice(0, 1);
   }
   else if(arr.length<quantity){
-    arr.push(
-      obj)
+    for(let i = 0; i <= quantity; i++ ){
+      arr.push(obj)
+    }
+
   }
   if(settings){
     for(let i = arr.length-1; i >= 0; i-- ){
