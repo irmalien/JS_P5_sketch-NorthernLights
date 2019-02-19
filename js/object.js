@@ -11,8 +11,8 @@ class Rose {
     this.lineWeight = this.size / 2500;
     this.playspeedMultiplier = random(0.02,0.1)
     this.playspeed = (this.playspeedMultiplier/width)
-    this.color = [random(0,360), 70, 70];
-    this.colorStep = 240/width;
+    this.color = [random(0,360), 60, 80];
+    this.colorStep = random(170, 300)/width;
 
     this.trail = {
       size:    10,
@@ -24,7 +24,7 @@ class Rose {
     }
 
     this.translatePosition = {
-      position: -800,
+      position: mobileVersion(-800, -400),
       stepDistance: 1,
       numberOfSteps(){
         return width/this.stepDistance
@@ -66,15 +66,15 @@ class Rose {
     this.trail.size = random(5,10);
     this.trail.distance = 0.0001;
     this.trail.minimumAlfa = 0.5;
-    this.translatePosition.stepDistance = 2;
+    this.translatePosition.stepDistance = mobileVersion(2, 1);
     console.log("small")
 
   }
   styleB(){
     this.trail.size = random(20,100);
     this.trail.distance = 0.001;
-    this.trail.minimumAlfa = 0.08;
-    this.translatePosition.stepDistance = 3;
+    this.trail.minimumAlfa = 0.3;
+    this.translatePosition.stepDistance = mobileVersion(3, 1);
     console.log("big")
   }
 
@@ -119,11 +119,12 @@ class Rose {
       stroke(this.color[0], this.color[1], this.color[2], tempAlfa);
       strokeWeight(this.lineWeight);
       
-      if (i < this.trail.size / 1.5) {
-        blendMode(SCREEN);
-      } else {
-        blendMode(NORMAL);
-      }
+      blendMode(SCREEN);
+      // if (i < this.trail.size / 1.5) {
+      //   blendMode(SCREEN);
+      // } else {
+      //   blendMode(NORMAL);
+      // }
 
       this.drawRose(this.size, this.d, this.k, tempC)
 

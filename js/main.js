@@ -25,10 +25,10 @@ function setup() {
 function draw() {
   translate(0, height / 2);
   frameRate(scene.fps)
-
+  let distanceAfterWidth = mobileVersion(1.5, 2)
   // Remove objects if out of range
   for(let i = objArr.length-1; i >= 0; i-- ){
-    if(objArr[i].NewTranslatePosition>width*1.5){
+    if(objArr[i].NewTranslatePosition>width*distanceAfterWidth){
       objArr.splice(i, 1);
       initFadeout = true;
       initSave = true;
@@ -36,9 +36,11 @@ function draw() {
   }
 
   // Save image and pause
-  if(!objArr.length && initSave && autosave){
-    saveCanvas(this.titleShort, 'png')
-    scene.pause(1000);
+  if(!objArr.length && initSave){
+    if(autosave){
+      saveCanvas(this.titleShort, 'png')
+    }
+    scene.pause(1500);
     initSave = false;
   }
   
@@ -56,7 +58,7 @@ function draw() {
 
   // Restart scene
   if(!objArr.length && initReset){
-    quantity = random(1,3);
+    quantity = floor(random(1,2));
     for(let i = 0; i <= quantity; i++ ){
       objArr.push(new Rose())
     }
