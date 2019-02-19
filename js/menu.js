@@ -8,24 +8,15 @@ const display = mobileVersion("display:flex;", "display:none;")
 function menu(){
   const menu = document.createElement('div');
   const list = document.createElement('ul');
-  menu.style.cssText = `position:absolute;width:10rem;height:12rem;top:15px; left:15px; ${display} align-items:left;justify-content:top;background:#fff; z-index:100; padding:0.75rem; background-color: #111; opacity: 0.8; -webkit-user-select: none; -moz-user-select: none;-ms-user-select: none; user-select: none;`;
+  menu.style.cssText = `position:absolute;width:10rem;height:3rem;top:15px; left:15px; ${display} align-items:left;justify-content:top;background:#fff; z-index:100; padding:0.75rem; background-color: #111; opacity: 0.8; -webkit-user-select: none; -moz-user-select: none;-ms-user-select: none; user-select: none;`;
   menu.id = "menu";
   list.style.cssText = 'list-style-type: none; margin: 0; padding: 0; font-family: "Source Code Pro", monospace; font-size:0.75rem; color: #fff';
   document.body.appendChild(menu);
   menu.appendChild(list);
 
   const eventList = [
-    '[Mouse1] Random',
-    '[Scroll] Zoom',
     '[Tab] Hide menu',
-    '&nbsp;',
-    '[↑] Add',
-    '[↓] Remove', 
-    '[←] Slower',
-    '[→] Faster',
-    '&nbsp;',
-    '[M] Change mode',
-    '[C] Change color',
+    '[Space] Pause',
     '[D] Download', 
   ]
 

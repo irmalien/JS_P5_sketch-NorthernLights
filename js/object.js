@@ -11,7 +11,6 @@ class Rose {
     this.lineWeight = this.size / 2500;
     this.playspeedMultiplier = random(0.02,0.1)
     this.playspeed = (this.playspeedMultiplier/width)
-    console.log(this.playspeedMultiplier)
     this.color = [random(0,360), 70, 70];
     this.colorStep = 240/width;
 
