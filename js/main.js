@@ -53,6 +53,7 @@ function draw() {
       initReset = true
       fadeOutAlfa = 0;
       clear();
+      scene.fillCanvasToScreen()
     }
   } 
 

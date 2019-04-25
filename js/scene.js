@@ -1,6 +1,6 @@
 const scene = {
-  titleFull: "Nordic Light",
-  titleShort: "NordicLights",
+  titleFull: "Northern Light",
+  titleShort: "NorthernLights",
   canvas: null,
   relativeSize: 16,
   canvasWidth: document.documentElement.clientWidth,
